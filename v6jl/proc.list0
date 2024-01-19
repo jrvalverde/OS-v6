@@ -1,0 +1,56 @@
+1
+param.h systm.h seg.h proc.h user.h
+conf/low.s	klin klou pcin pcou kwlp lpou rkio
+conf/m40.s	start _end _edata _main _clearseg _copyseg _savu _aretu _retu
+		trap _trap call _fubyte _subyte _fuibyte _suibyte _fuword
+		_suword _fuiword _suiword _savfp _display _incupc _getc _putc
+		_backup _copyin _copyout _idle _spl0 _spl1 _spl4 _spl5 _spl6
+		_spl7 _dpadd _dpcmp dump _ldiv _lrem _lshift csv cret _ka6 
+
+ken/main.c	main estabur sureg nseg
+ken/slp.c	sleep wakeup setrun setpri sched swtch newproc expand
+ken/prf.c	printf printn putchar panic prdev deverror
+ken/malloc.c	malloc mfree
+
+2
+reg.h
+ken/trap.c	trap nosys nullsys
+sysent.c
+ken/sys1.c	exec rexit exit wait fork sbreak
+ken/sys4.c	getswit gtime stime setuid getuid setgid getgid getpid sync
+		nice unlink chdir chmod chown smdate ssig kill times profil
+ken/clock.c	clock timeout
+ken/sig.c	signal psignal issig stop psig core grow ptrace procxmt
+
+3
+text.h
+ken/text.c	xswap xfree xalloc xccdec
+buf.h
+conf/conf.h
+conf/conf.c
+dmr/bio.c	bread breada bwrite bdwrite bawrite brelse incore getblk iowait
+		notavail iodone clrbuf binit devstart rhstart mapalloc mapfree
+		swap bflush physio geterror
+dmr/rk.c	rkstrategy rkaddr rkstart rkintr rkread rkwrite
+
+4
+file.h filesys.h ino.h inode.h
+ken/sys2.c	read write rdwr open creat close seek link mknod sslep
+ken/sys3.c	fstat stat dup smount sumount getmdev
+ken/rdwri.c	readi writei max min iomove
+ken/subr.c	bmap passc cpass nodev nulldev bcopy
+ken/fio.c	getf closef closei openi access owner suser ufalloc falloc
+ken/alloc.c	iinit alloc free badblock ialloc ifree getfs update
+ken/iget.c	iget iput iupdat itrunc maknode wdir
+ken/nami.c	namei schar uchar
+ken/pipe.c	pipe readp writep plock prele
+
+5
+tty.h
+dmr/kl.c	klopen klclose klread klwrite klxint klrint klsgtty
+dmr/tty.c	gtty stty sgtty wflushtty cinit flushtty canon ttyinput
+		ttyoutput ttrstrt ttstart ttread ttwrite ttystty
+dmr/pc.c	pcopen pcclose pcread pcwrite pcstart pcrint pcpint pcoutput
+		pcleader
+dmr/lp.c	lpopen lpclose lpwrite lpcanon lpstart lpint lpoutput
+dmr/mem.c	mmread mmwrite

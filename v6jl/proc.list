@@ -1,0 +1,88 @@
+1
+param.h
+systm.h
+seg.h
+proc.h
+user.h
+conf/low.s	klin klou pcin pcou kwlp lpou rkio
+conf/m40.s	start _end _edata _main _clearseg _copyseg _savu
+		_aretu _retu trap _trap call _fubyte _subyte
+		_fuibyte _suibyte _fuword _suword _fuiword
+		_suiword _savfp _display _incupc _getc _putc
+		_backup _copyin _copyout _idle _spl0 _spl1 _spl4
+		_spl5 _spl6 _spl7 _dpadd _dpcmp dump _ldiv _lrem
+		_lshift csv cret _ka6 
+
+ken/main.c	main() estabur(nt, nd, ns, sep) sureg() nseg(n)
+ken/slp.c	sleep(chan, pri) wakeup(chan) setrun(p) setpri(up)
+		sched() swtch() newproc() expand(newsize)
+ken/prf.c	printf(fmt,x1,x2,x3,x4,x5,x6,x7,x8,x9,xa,xb,xc)
+		printn(n, b) putchar(c) panic(s) prdev(str, dev)
+		deverror(bp, o1, o2)
+ken/malloc.c	malloc(mp, size) mfree(mp, size, aa)
+
+2
+reg.h
+ken/trap.c	trap(dev, sp, r1, nps, r0, pc, ps) nosys() nullsys()
+sysent.c
+ken/sys1.c	exec() rexit() exit() wait() fork() sbreak()
+ken/sys4.c	getswit() gtime() stime() setuid() getuid() setgid()
+		getgid() getpid() sync() nice() unlink() chdir()
+		chmod() chown() smdate() ssig() kill() times() profil()
+ken/clock.c	clock(dev, sp, r1, nps, r0, pc, ps) timeout(fun, arg, tim)
+ken/sig.c	signal(tp, sig) psignal(p, sig) issig() stop() psig()
+		core() grow(sp) ptrace() procxmt()
+
+3
+text.h
+ken/text.c	xswap(p, ff, os) xfree() xalloc(ip) xccdec(xp)
+buf.h
+conf/conf.h
+conf/conf.c
+dmr/bio.c	bread(dev, blkno) breada(adev, blkno, rablkno)
+		bwrite(bp) bdwrite(bp) bawrite(bp) brelse(bp)
+		incore(adev, blkno) getblk(dev, blkno) iowait(bp)
+		notavail(bp) iodone(bp) clrbuf(bp) binit()
+		devstart(bp, devloc, devblk, hbcom)
+		rhstart(bp, devloc, devblk, abae) mapalloc(abp)
+		mapfree(bp) swap(blkno, coreaddr, count, rdflg)
+		bflush(dev) physio(strat, abp, dev, rw) geterror(abp)
+dmr/rk.c	rkstrategy(abp) rkaddr(bp) rkstart() rkintr()
+		rkread(dev) rkwrite(dev)
+
+4
+file.h
+filesys.h
+ino.h
+inode.h
+ken/sys2.c	read() write() rdwr(mode) open() creat() close()
+		seek() link() mknod() sslep()
+ken/sys3.c	fstat() stat() dup() smount() sumount() getmdev()
+ken/rdwri.c	readi(aip) writei(aip) max(a, b) min(a, b)
+		iomove(bp, o, an, flag)
+ken/subr.c	bmap(ip, bn) passc(c) cpass() nodev() nulldev()
+		bcopy(from, to, count)
+ken/fio.c	getf(f) closef(fp) closei(ip, rw) openi(ip, rw)
+		access(aip, mode) owner() suser() ufalloc() falloc()
+ken/alloc.c	iinit() alloc(dev) free(dev, bno)
+		badblock(afp, abn, dev) ialloc(dev) ifree(dev, ino)
+		getfs(dev) update()
+ken/iget.c	iget(dev, ino) iput(p) iupdat(p, tm) itrunc(ip)
+		maknode(mode) wdir(ip)
+ken/nami.c	namei(func, flag) schar() uchar()
+ken/pipe.c	pipe() readp(fp) writep(fp) plock(ip) prele(ip)
+
+5
+tty.h
+dmr/kl.c	klopen(dev, flag) klclose(dev) klread(dev)
+		klwrite(dev) klxint(dev) klrint(dev) klsgtty(dev, v)
+dmr/tty.c	gtty() stty() sgtty(v) wflushtty(atp) cinit()
+		flushtty(atp) canon(atp) ttyinput(ac, atp)
+		ttyoutput(ac, tp) ttrstrt(atp) ttstart(atp)
+		ttread(atp) ttwrite(atp) ttystty(atp, av)
+dmr/pc.c	pcopen(dev, flag) pcclose(dev, flag) pcread()
+		pcwrite() pcstart() pcrint() pcpint() pcoutput(c)
+		pcleader()
+dmr/lp.c	lpopen(dev, flag) lpclose(dev, flag) lpwrite()
+		lpcanon(c) lpstart() lpint() lpoutput(c)
+dmr/mem.c	mmread(dev) mmwrite(dev)
